@@ -1,12 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Signin from "./src/screens/Signin";
+import Signup from "./src/screens/Signup";
+import { RootNavigator } from "./src/navigation/navigation";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { firebaseConfig } from "./src/firebase/firebase";
+import * as firebase from "firebase";
 
 export default function App() {
+  if (!firebase.apps.length) {
+    try {
+      firebase.initializeApp(firebaseConfig);
+    } catch (e) {
+      console.log(`bir hata oluştu sanırım ${e}`);
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
     </View>
   );
 }
@@ -14,8 +30,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // marginVertical: 50,
   },
 });

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "909280832075",
+    "firebase_url": "https://bakkal-app-15100.firebaseio.com",
+    "project_id": "bakkal-app-15100",
+    "storage_bucket": "bakkal-app-15100.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909280832075:android:f3d529ba8cb7d8b3ad7bce",
+        "android_client_info": {
+          "package_name": "Bakkal.App"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909280832075-9sr4bk8m54drbu6gfnpgcb781thv6h7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtySY-jisAR7UqrKaSZM9-4qF35P5KU7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909280832075-9sr4bk8m54drbu6gfnpgcb781thv6h7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

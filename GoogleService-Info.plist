@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>909280832075-5q4iuftjkkn7tqm7md0sg5m5tua76hom.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.909280832075-5q4iuftjkkn7tqm7md0sg5m5tua76hom</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAh08ghTCGDGB2P4IwuUs7P6V2xbOUi1os</string>
+	<key>GCM_SENDER_ID</key>
+	<string>909280832075</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Bakkal.App</string>
+	<key>PROJECT_ID</key>
+	<string>bakkal-app-15100</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bakkal-app-15100.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:909280832075:ios:13ef73936c5da152ad7bce</string>
+	<key>DATABASE_URL</key>
+	<string>https://bakkal-app-15100.firebaseio.com</string>
+</dict>
+</plist>
