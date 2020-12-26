@@ -7,7 +7,6 @@ export default CustomerListHeader = ({ listName }) => {
   //Başlık
   
 
-  const [headerText, setHeaderText] = useState({})
 
   
   //Etiketler  Ad Soyad   Borç miktarı    borç Limit

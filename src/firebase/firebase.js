@@ -1,8 +1,6 @@
+import * as firebase from "firebase";
 
-import * as firebase from 'firebase';
-
-
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyBw-gaE5HEzt-bjbE7Y_2UirdaP1-BL63E",
   authDomain: "bakkal-app-15100.firebaseapp.com",
   databaseURL: "https://bakkal-app-15100.firebaseio.com",
@@ -12,4 +10,12 @@ export const firebaseConfig = {
   appId: "1:909280832075:web:ae309922e709a341ad7bce",
 };
 
+if (!firebase.apps.length) {
+  try {
+    firebase.initializeApp(firebaseConfig);
+  } catch (e) {
+    console.log(`bir hata oluştu sanırım ${e}`);
+  }
+}
 
+export {firebase};

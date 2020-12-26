@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -13,22 +13,33 @@ import CustomerListHeader from "../component/CustomerListHeader";
 import { Colors } from "../styles/style";
 import { CustomerNameList } from "../component/CustomerList";
 import { Ionicons } from "react-native-vector-icons";
-import * as firebase from "firebase";
-import  'firebase/firestore'
+// import * as firebase from "firebase";
+import { firebase } from "../firebase/firebase";
+import "firebase/firestore";
 
 const db = firebase.firestore();
 
-
-const getCustomers = () => {
- 
-  db.collection()
-};
-
 export default CustomersScreen = ({ navigation }) => {
-  /*s
-      FİRESTORE
-      1- Müşterileri al ve ekranda göster 
-  */
+  // const [customer, setCustomer] = useState({});
+  const [customers, setCustomers] = useState([]);
+
+  
+  const getCustomers = () => {
+    db.collection("Customer").onSnapshot((snapshot) => {
+      const newCustomer = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+      setCustomers(newCustomer);
+    });
+  };
+
+  
+  useEffect(() => {
+    getCustomers();
+  }, [customers]);
 
   return (
     <>
@@ -36,7 +47,7 @@ export default CustomersScreen = ({ navigation }) => {
         <CustomerListHeader listName="customer" />
       </View>
 
-      <CustomerNameList data={Customers.customers} />
+      <CustomerNameList data={customers}  />
 
       <TouchableOpacity
         style={styles.iconView}
@@ -46,7 +57,7 @@ export default CustomersScreen = ({ navigation }) => {
       >
         <Ionicons name="md-add-circle" size={64} color={Colors.accent} />
       </TouchableOpacity>
-      <Button title="Firebas e gönder" onPress={() => addCustomer()} />
+      <Button title="Firebas e gönder" onPress={() => console.log('tılandı ')} />
     </>
   );
 };

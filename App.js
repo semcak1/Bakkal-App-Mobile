@@ -10,13 +10,7 @@ import { firebaseConfig } from "./src/firebase/firebase";
 import * as firebase from "firebase";
 
 export default function App() {
-  if (!firebase.apps.length) {
-    try {
-      firebase.initializeApp(firebaseConfig);
-    } catch (e) {
-      console.log(`bir hata oluştu sanırım ${e}`);
-    }
-  }
+ 
 
   return (
     <View style={styles.container}>
