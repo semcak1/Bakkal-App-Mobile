@@ -18,6 +18,7 @@ import {
 } from "react-native-vector-icons";
 import AddCustomerScreen from "../screens/AddCustomerScreen";
 import AddIncomeExpensesScreen from "../screens/AddIncomeExpensesScreen";
+import CustomerDetails from "../screens/CustomerDetails";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 let isLoggedIn = true;
@@ -105,26 +106,19 @@ const CustomerStack = () => {
         }}
       />
       <Stack.Screen name="Add Customer" component={AddCustomerScreen} />
+      <Stack.Screen name="CustomerDetails" component={CustomerDetails} />
     </Stack.Navigator>
   );
 };
 
-
-const IncExpStack = ()=>{
-  return(
+const IncExpStack = () => {
+  return (
     <Stack.Navigator>
-      <Stack.Screen
-      name="Gelir - Gider"
-      component={IncomesExpensesScreen}
-       />
-       <Stack.Screen 
-         name ='Ana kalem'
-         component={AddIncomeExpensesScreen}
-       />
-
+      <Stack.Screen name="Gelir - Gider" component={IncomesExpensesScreen} />
+      <Stack.Screen name="Ana kalem" component={AddIncomeExpensesScreen} />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 export const RootNavigator = createSwitchNavigator({
   App: BottomTab,
