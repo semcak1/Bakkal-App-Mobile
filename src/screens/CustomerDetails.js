@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Button } from "react-native-elements";
 import { firebase } from "../firebase/firebase";
 import "firebase/firestore";
-
+import { Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
 import { Colors } from "../styles/style";
 import CustomerDebtList from "../component/CustomerDebtList";
 
@@ -32,29 +33,34 @@ export default CustomerDetails = ({ route, navigation }) => {
     debtCol.onSnapshot((snapshot) => {
       snapshot.docs.map((doc) => {
         const { debtPrice } = doc.data();
-        total= debtPrice+total
-        
+        total = debtPrice + total;
       });
       setTotalDebt(total.toFixed(2));
-      console.log(total)
+      console.log(total);
     });
-
-    
   };
 
   useEffect(() => {
     showDetails();
     calculateTotalDebt();
-    return () => {
-      showDetails();
-      calculateTotalDebt();
-    };
   }, []);
 
   return (
     <>
       <View style={styles.mainView}>
         <View style={styles.circleScreen}>
+          <View style={styles.editButtonView}>
+            <TouchableOpacity 
+            onPress={navigation.navigate('UpdateCustomer')}
+            type="clear">
+              <MaterialCommunityIcons
+                name="account-edit"
+                size={60}
+                color={Colors.primary}
+              />
+            </TouchableOpacity>
+          </View>
+
           <Text style={styles.totalDebtView}>{totalDebt} TL </Text>
           <Text style={styles.textView}>
             {name}
@@ -67,6 +73,14 @@ export default CustomerDetails = ({ route, navigation }) => {
       </View>
 
       <CustomerDebtList debts={debts} />
+      <TouchableOpacity
+        style={styles.buttonView}
+        onPress={() => {
+          navigation.navigate("Add Customer");
+        }}
+      >
+        <Ionicons name="md-add-circle" size={64} color={Colors.primary} />
+      </TouchableOpacity>
     </>
   );
 };
@@ -110,5 +124,28 @@ const styles = StyleSheet.create({
     top: 150,
     backgroundColor: Colors.accent,
     zIndex: -1,
+  },
+  buttonView: {
+    shadowOffset: { width: 10 },
+    shadowOpacity: 1,
+    shadowColor: "black",
+
+    position: "absolute",
+    bottom: 30,
+    right: 50,
+    elevation: 100,
+  },
+  editButtonView: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 55,
+    width: 55,
+    borderRadius: 55 / 2,
+
+    backgroundColor: "rgba(255,255,255,0.8)",
+
+    position: "absolute",
+    right: -5,
+    bottom: 20,
   },
 });
