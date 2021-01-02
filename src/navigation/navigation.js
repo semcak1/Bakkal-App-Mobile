@@ -19,6 +19,8 @@ import {
 import AddCustomerScreen from "../screens/AddCustomerScreen";
 import AddIncomeExpensesScreen from "../screens/AddIncomeExpensesScreen";
 import CustomerDetails from "../screens/CustomerDetails";
+import UpdateCustomerScreen from "../screens/UpdateCustomerScreen";
+import AddDebtScreen from "../screens/AddDebtScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 let isLoggedIn = true;
@@ -106,7 +108,13 @@ const CustomerStack = () => {
         }}
       />
       <Stack.Screen name="Add Customer" component={AddCustomerScreen} />
-      <Stack.Screen name="CustomerDetails" component={CustomerDetails} />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="DetailOfCustomer"
+        component={CustomerDetail}
+      />
     </Stack.Navigator>
   );
 };
@@ -116,6 +124,19 @@ const IncExpStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="Gelir - Gider" component={IncomesExpensesScreen} />
       <Stack.Screen name="Ana kalem" component={AddIncomeExpensesScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const CustomerDetail = () => {
+  return (
+    <Stack.Navigator initialRouteName="CustomerDetails">
+      <Stack.Screen name="CustomerDetails" component={CustomerDetails} />
+      <Stack.Screen name="Edit Customer" component={UpdateCustomerScreen} />
+      <Stack.Screen
+        name='AddDebt'
+        component={AddDebtScreen}
+      />
     </Stack.Navigator>
   );
 };

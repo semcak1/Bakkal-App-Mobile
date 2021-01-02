@@ -13,6 +13,12 @@ import { useDispatch } from "react-redux";
   
 const UpdateCustomerScreen = ({navigation}) => {
     return (
-        
+        <View>
+            <Text>EDit CUSTOMER</Text>
+        </View>
     )
 }
+
+
+
+export default UpdateCustomerScreen;

@@ -18,13 +18,11 @@ import "firebase/firestore";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { getCustomers } from "../middleware/middleware";
 import { useDispatch } from "react-redux";
-import {deleteCustomerById} from '../middleware/middleware'
+import { deleteCustomerById } from "../middleware/middleware";
 const db = firebase.firestore().collection("Customer");
 const buttonWidth = 90;
 
 //LOGİC
-
-
 
 const CustomerTotalDebt = ({ id, callback }) => {
   return (
@@ -63,11 +61,8 @@ export const CustomerNameList = ({ data, navigation }) => {
   };
 
   useEffect(() => {
-  
-      dispatch(getCustomers());
-    
-   
-  },[dispatch]);
+    dispatch(getCustomers());
+  }, [dispatch]);
 
   return (
     <SwipeListView
@@ -77,11 +72,14 @@ export const CustomerNameList = ({ data, navigation }) => {
         return (
           <TouchableHighlight
             onPress={() => {
-              navigation.navigate("CustomerDetails", {
-                customerId: item.id,
-                name: item.name,
-                surname: item.surname,
-                limit: item.limit,
+              navigation.navigate("DetailOfCustomer", {
+                screen:'CustomerDetails',
+                params: {
+                  customerId: item.id,
+                  name: item.name,
+                  surname: item.surname,
+                  limit: item.limit,
+                },
               });
             }}
           >

@@ -13,20 +13,20 @@ const findCollection = (path) => {
 export default CustomerDetails = ({ route, navigation }) => {
   const { customerId, name, surname, limit } = route.params;
 
-  const [debts, setDebts] = useState([]);
+  // const [debts, setDebts] = useState([]);
   const [totalDebt, setTotalDebt] = useState(0);
   const debtCol = findCollection(`Customer/${customerId}/Debt`);
 
-  const showDetails = () => {
-    debtCol.onSnapshot((snapshot) => {
-      const items = [];
-      snapshot.forEach((doc) => {
-        items.push({ id: doc.id, ...doc.data() });
-      });
+  // const showDetails = () => {
+  //   debtCol.onSnapshot((snapshot) => {
+  //     const items = [];
+  //     snapshot.forEach((doc) => {
+  //       items.push({ id: doc.id, ...doc.data() });
+  //     });
 
-      setDebts(items);
-    });
-  };
+  //     setDebts(items);
+  //   });
+  // };
 
   const calculateTotalDebt = () => {
     let total = 0;
@@ -41,9 +41,9 @@ export default CustomerDetails = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    showDetails();
+    // showDetails();
     calculateTotalDebt();
-  }, []);
+  },[]);
 
   return (
     <>
@@ -51,7 +51,9 @@ export default CustomerDetails = ({ route, navigation }) => {
         <View style={styles.circleScreen}>
           <View style={styles.editButtonView}>
             <TouchableOpacity 
-            onPress={navigation.navigate('UpdateCustomer')}
+            onPress={()=>{
+              navigation.navigate('Edit Customer')
+            }}
             type="clear">
               <MaterialCommunityIcons
                 name="account-edit"
@@ -72,11 +74,11 @@ export default CustomerDetails = ({ route, navigation }) => {
         <Text style={styles.bigRadiusView}></Text>
       </View>
 
-      <CustomerDebtList debts={debts} />
+      <CustomerDebtList customerId={customerId} />
       <TouchableOpacity
         style={styles.buttonView}
         onPress={() => {
-          navigation.navigate("Add Customer");
+          navigation.navigate("AddDebt");
         }}
       >
         <Ionicons name="md-add-circle" size={64} color={Colors.primary} />
