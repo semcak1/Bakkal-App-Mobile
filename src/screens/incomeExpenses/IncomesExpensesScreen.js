@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import IncomesExpensesList from "../component/IncomeExpensesComponent/IncomeExpensesList";
-import {IncomeExpenses} from '../database/IncomeExpensesDb'
+import IncomesExpensesList from "../../component/IncomeExpensesComponent/IncomeExpensesList";
+
 export default IncomesExpensesScreen = () => {
   
   return (

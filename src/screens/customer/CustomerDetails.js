@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
-import { firebase } from "../firebase/firebase";
+import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
-import { Colors } from "../styles/style";
-import CustomerDebtList from "../component/CustomerDebtList";
+import { Colors } from "../../styles/style";
+import CustomerDebtList from "../../component/CustomerDebtList";
 
 const findCollection = (path) => {
   return firebase.firestore().collection(path);

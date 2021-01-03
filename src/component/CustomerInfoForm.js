@@ -52,7 +52,7 @@ const CustomerInfoForm = ({
       <View style={styles.buttonGroup}>
         <Button
           onPress={() => {
-            navigation.navigate("Customer List");
+            navigation.goBack();
           }}
           title="İptal"
           buttonStyle={styles.cancelButtonView}

@@ -16,9 +16,9 @@ import { Customers } from "../database/Customer";
 import { firebase } from "../firebase/firebase";
 import "firebase/firestore";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { getCustomers } from "../middleware/middleware";
+import { getCustomers } from "../store/middleware/middleware";
 import { useDispatch } from "react-redux";
-import { deleteCustomerById } from "../middleware/middleware";
+import { deleteCustomerById } from "../store/middleware/middleware";
 const db = firebase.firestore().collection("Customer");
 const buttonWidth = 90;
 

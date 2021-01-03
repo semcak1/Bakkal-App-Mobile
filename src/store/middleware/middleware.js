@@ -1,7 +1,7 @@
 //Logic ve ASYNC Fonk. yazılacak.
 
 import React from "react";
-import { firebase } from "../firebase/firebase";
+import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import {
   fetchCustomers,
