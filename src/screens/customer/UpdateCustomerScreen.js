@@ -5,10 +5,17 @@ import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { inputView, Colors } from "../../styles/style";
 import { store } from "../../store/index";
+
 import { addNewCustomer } from "../../store/middleware/middleware";
 import { useDispatch } from "react-redux";
 import CustomerInfoForm from "../../component/CustomerInfoForm";
 import { updateCustomerById } from "../../store/middleware/middleware";
+
+import { addNewCustomer } from "../../middleware/middleware";
+import { useDispatch } from "react-redux";
+import CustomerInfoForm from "../../component/CustomerInfoForm";
+import { updateCustomerById } from "../../middleware/middleware";
+
 
 const UpdateCustomerScreen = ({ navigation,route }) => {
   const customerData = route.params;

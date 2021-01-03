@@ -9,7 +9,11 @@ import { Ionicons } from "react-native-vector-icons";
 import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
+
 import { getCustomers } from "../../store/middleware/middleware";
+
+import { getCustomers } from "../../middleware/middleware";
+
 
 const collection = firebase.firestore().collection("Customer");
 
