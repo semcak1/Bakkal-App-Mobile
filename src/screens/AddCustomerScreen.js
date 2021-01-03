@@ -7,89 +7,22 @@ import { inputView, Colors } from "../styles/style";
 import { store } from "../store/index";
 import { addNewCustomer } from "../middleware/middleware";
 import { useDispatch } from "react-redux";
+import CustomerInfoForm from "../component/CustomerInfoForm";
 
-
-  
-  
-const AddCustomerScreen = ({navigation}) => {
-
+const AddCustomerScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  //STATE
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [limit, setLimit] = useState(null);
-  const [telephone, setTelephone] = useState("");
-
-  //FİREBASE
-  const db = firebase.firestore().collection("Customer");
 
   const addCustomerToFirebase = (data) => {
-    dispatch(addNewCustomer(data))
+    dispatch(addNewCustomer(data));
   };
 
-  // const addFormToFirebase = (data) => {
-  //   db.add(data)
-  //     .then((a) => console.log("Başarıyla kaydedildi", a.id))
-  //     .catch((err) => console.log(err.message));
-  // };
-
   return (
-    <ScrollView>
-      <Input
-        value={name}
-        onChangeText={(text) => {
-          setName(text);
-        }}
-        style={styles.inputView}
-        placeholder="Ad"
-      ></Input>
-
-      <Input
-        value={surname}
-        onChangeText={(text) => {
-          setSurname(text);
-        }}
-        style={styles.inputView}
-        placeholder="Soyad"
-      ></Input>
-      <Input
-        value={limit}
-        onChangeText={(text) => {
-          setLimit(text);
-        }}
-        style={styles.inputView}
-        placeholder="Borç Limiti"
-      ></Input>
-      <Input
-        value={telephone}
-        onChangeText={(text) => {
-          setTelephone(text);
-        }}
-        style={styles.inputView}
-        placeholder="Telefon"
-      ></Input>
-      <View style={styles.buttonGroup}>
-        <Button 
-        onPress={()=>{
-          navigation.navigate('Customer List')
-        }}
-        title="İptal" buttonStyle={styles.cancelButtonView} />
-        <Button
-          onPress={() => {
-            
-            addCustomerToFirebase({
-              name,
-              surname,
-              limit,
-              telephone,
-            })
-            navigation.navigate('Customer List')
-          }}
-          title="Ekle"
-          buttonStyle={styles.succesButtonView}
-        />
-      </View>
-    </ScrollView>
+    <CustomerInfoForm
+      navigation={navigation}
+      onButtonClick={addCustomerToFirebase}
+      buttonTitle="Kaydet"
+      customerData={{ name: "", surname: "", limit: 0, telephone: "" }}
+    />
   );
 };
 
@@ -114,7 +47,5 @@ const styles = StyleSheet.create({
     width: 150,
   },
 });
-
-
 
 export default AddCustomerScreen;

@@ -55,4 +55,14 @@ const deleteCustomerById = (id) => {
   };
 };
 
-export { getCustomers, addNewCustomer,deleteCustomerById };
+const updateCustomerById = (data) => {
+  return (dispatch) => {
+    customersList
+      .doc(data.id)
+      .update(data)
+      .then((res) => dispatch(updateCustomer(data)))
+      .catch((err) => console.log(err.message));
+  };
+};
+
+export { getCustomers, addNewCustomer, deleteCustomerById, updateCustomerById };

@@ -7,18 +7,21 @@ import { inputView, Colors } from "../styles/style";
 import { store } from "../store/index";
 import { addNewCustomer } from "../middleware/middleware";
 import { useDispatch } from "react-redux";
+import CustomerInfoForm from "../component/CustomerInfoForm";
+import { updateCustomerById } from "../middleware/middleware";
 
-
+const UpdateCustomerScreen = ({ navigation,route }) => {
+  const customerData = route.params;
   
-  
-const UpdateCustomerScreen = ({navigation}) => {
-    return (
-        <View>
-            <Text>EDit CUSTOMER</Text>
-        </View>
-    )
-}
-
-
+  console.log(customerData.name)
+  return (
+    <CustomerInfoForm
+      buttonTitle="Güncelle"
+      onButtonClick={updateCustomerById}
+      customerData={customerData}
+      
+    />
+  );
+};
 
 export default UpdateCustomerScreen;

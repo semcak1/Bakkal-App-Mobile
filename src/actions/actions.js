@@ -17,6 +17,6 @@ export const deleteCustomer = (id) => {
   return { type: DELETE_CUSTOMER, payload:id};
 };
 
-export const updateCustomer = () => {
-  return { type: UPDATE_CUSTOMER, payload };
+export const updateCustomer = (data) => {
+  return { type: UPDATE_CUSTOMER, payload:data };
 };

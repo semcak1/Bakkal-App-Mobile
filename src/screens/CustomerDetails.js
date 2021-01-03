@@ -11,22 +11,10 @@ const findCollection = (path) => {
   return firebase.firestore().collection(path);
 };
 export default CustomerDetails = ({ route, navigation }) => {
-  const { customerId, name, surname, limit } = route.params;
+  const customerData = route.params;
 
-  // const [debts, setDebts] = useState([]);
   const [totalDebt, setTotalDebt] = useState(0);
-  const debtCol = findCollection(`Customer/${customerId}/Debt`);
-
-  // const showDetails = () => {
-  //   debtCol.onSnapshot((snapshot) => {
-  //     const items = [];
-  //     snapshot.forEach((doc) => {
-  //       items.push({ id: doc.id, ...doc.data() });
-  //     });
-
-  //     setDebts(items);
-  //   });
-  // };
+  const debtCol = findCollection(`Customer/${customerData.customerId}/Debt`);
 
   const calculateTotalDebt = () => {
     let total = 0;
@@ -43,18 +31,21 @@ export default CustomerDetails = ({ route, navigation }) => {
   useEffect(() => {
     // showDetails();
     calculateTotalDebt();
-  },[]);
+  }, []);
 
   return (
     <>
       <View style={styles.mainView}>
         <View style={styles.circleScreen}>
           <View style={styles.editButtonView}>
-            <TouchableOpacity 
-            onPress={()=>{
-              navigation.navigate('Edit Customer')
-            }}
-            type="clear">
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Edit Customer", {
+                ...customerData
+                });
+              }}
+              type="clear"
+            >
               <MaterialCommunityIcons
                 name="account-edit"
                 size={60}
@@ -65,16 +56,16 @@ export default CustomerDetails = ({ route, navigation }) => {
 
           <Text style={styles.totalDebtView}>{totalDebt} TL </Text>
           <Text style={styles.textView}>
-            {name}
-            {""} {surname}
+            {customerData.name}
+            {""} {customerData.surname}
           </Text>
 
-          <Text style={styles.textView}>Limit : {limit} TL </Text>
+          <Text style={styles.textView}>Limit : {customerData.limit} TL </Text>
         </View>
         <Text style={styles.bigRadiusView}></Text>
       </View>
 
-      <CustomerDebtList customerId={customerId} />
+      <CustomerDebtList customerId={customerData.customerId} />
       <TouchableOpacity
         style={styles.buttonView}
         onPress={() => {

@@ -1,7 +1,9 @@
+import { State } from "react-native-gesture-handler";
 import {
   ADD_CUSTOMER,
   DELETE_CUSTOMER,
   FETCH_CUSTOMERS_SUCCESS,
+  UPDATE_CUSTOMER,
 } from "../constants/action-types";
 
 const initialState = {
@@ -16,7 +18,27 @@ const customerReducer = (state = initialState, action) => {
     case ADD_CUSTOMER:
       return { ...state, customers: [...state.customers, action.payload] };
     case DELETE_CUSTOMER:
-      return {...state,customers:[...state.customers.filter(customer=>customer.id!==action.payload)]}
+      return {
+        ...state,
+        customers: [
+          ...state.customers.filter(
+            (customer) => customer.id !== action.payload
+          ),
+        ],
+      };
+    case UPDATE_CUSTOMER:
+      return {
+        ...state,
+        customer: [
+          ...state.customers,
+          {
+            ...state.customers.find(
+              (customer) => customer.id === action.payload.id
+            ),
+            ...action.payload,
+          },
+        ],
+      };
     default:
       return state;
   }

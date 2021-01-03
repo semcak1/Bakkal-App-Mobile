@@ -79,6 +79,7 @@ export const CustomerNameList = ({ data, navigation }) => {
                   name: item.name,
                   surname: item.surname,
                   limit: item.limit,
+                  telephone:item.telephone
                 },
               });
             }}
