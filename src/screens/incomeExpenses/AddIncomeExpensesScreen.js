@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Input, Button } from "react-native-elements";
 
-import { inputView, Colors } from "../styles/style";
+import { inputView, Colors } from "../../styles/style";
 
 export default AddIncomeExpensesScreen = () => {
   return (

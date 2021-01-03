@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Customers } from "../database/Customer";
-import CustomerListHeader from "../component/CustomerListHeader";
-import { Colors } from "../styles/style";
-import { CustomerNameList } from "../component/CustomerList";
+import { Customers } from "../../database/Customer";
+import CustomerListHeader from "../../component/CustomerListHeader";
+import { Colors } from "../../styles/style";
+import { CustomerNameList } from "../../component/CustomerList";
 import { Ionicons } from "react-native-vector-icons";
 // import * as firebase from "firebase";
-import { firebase } from "../firebase/firebase";
+import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
-import { getCustomers } from "../middleware/middleware";
+import { getCustomers } from "../../middleware/middleware";
 
 const collection = firebase.firestore().collection("Customer");
 

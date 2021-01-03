@@ -4,9 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Signin from "../screens/Signin";
 import Signup from "../screens/Signup";
-import CustomersScreen from "../screens/CustomersScreen";
+import CustomersScreen from "../screens/customer/CustomersScreen";
 import DashboardScreen from "../screens/DashboardScreen";
-import IncomesExpensesScreen from "../screens/IncomesExpensesScreen";
+import IncomesExpensesScreen from "../screens/incomeExpenses/IncomesExpensesScreen";
 import { Settings } from "react-native";
 import SettingsScreen from "../screens/SettingsScreen";
 import { createSwitchNavigator } from "@react-navigation/compat";
@@ -16,11 +16,11 @@ import {
   MaterialIcons,
   FontAwesome,
 } from "react-native-vector-icons";
-import AddCustomerScreen from "../screens/AddCustomerScreen";
-import AddIncomeExpensesScreen from "../screens/AddIncomeExpensesScreen";
-import CustomerDetails from "../screens/CustomerDetails";
-import UpdateCustomerScreen from "../screens/UpdateCustomerScreen";
-import AddDebtScreen from "../screens/AddDebtScreen";
+import AddCustomerScreen from "../screens/customer/AddCustomerScreen";
+import AddIncomeExpensesScreen from "../screens/incomeExpenses/AddIncomeExpensesScreen";
+import CustomerDetails from "../screens/customer/CustomerDetails";
+import UpdateCustomerScreen from "../screens/customer/UpdateCustomerScreen";
+import AddDebtScreen from "../screens/customer/AddDebtScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 let isLoggedIn = true;
@@ -133,10 +133,7 @@ const CustomerDetail = () => {
     <Stack.Navigator initialRouteName="CustomerDetails">
       <Stack.Screen name="CustomerDetails" component={CustomerDetails} />
       <Stack.Screen name="Edit Customer" component={UpdateCustomerScreen} />
-      <Stack.Screen
-        name='AddDebt'
-        component={AddDebtScreen}
-      />
+      <Stack.Screen name="AddDebt" component={AddDebtScreen} />
     </Stack.Navigator>
   );
 };
