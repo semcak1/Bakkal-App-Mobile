@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Customers } from "../../database/Customer";
+
 import CustomerListHeader from "../../component/CustomerListHeader";
 import { Colors } from "../../styles/style";
 import { CustomerNameList } from "../../component/CustomerList";
@@ -8,38 +8,16 @@ import { Ionicons } from "react-native-vector-icons";
 // import * as firebase from "firebase";
 import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
-import { useSelector, useDispatch } from "react-redux";
-
-import { getCustomers } from "../../store/middleware/middleware";
-
-import { getCustomers } from "../../middleware/middleware";
-
+import { useSelector } from "react-redux";
 
 const collection = firebase.firestore().collection("Customer");
 
 const CustomersScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const  customers  = useSelector((state) => state.customers);
-  const [isLoading, setisLoading] = useState(false)
- const [data, setData] = useState(null)
-  // const [customer, setCustomer] = useState({});
+  
+  const customers = useSelector((state) => state.customers);
 
-  // const [customers, setCustomers] = useState([]);
+  console.log("comPONENT");
 
-  // const getCustomers = () => {
-  //   collection.onSnapshot((snapshot) => {
-  //     const items = [];
-
-  //     snapshot.forEach((doc) => {
-  //       items.push({ id: doc.id, ...doc.data() });
-  //     });
-
-  //     setCustomers(items);
-  //   });
-  // };
-
-  console.log('comPONENT')
- 
   return (
     <>
       <View style={styles.mainView}>

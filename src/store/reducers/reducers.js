@@ -1,4 +1,5 @@
 import { State } from "react-native-gesture-handler";
+import { updateCustomer } from "../actions/actions";
 import {
   ADD_CUSTOMER,
   DELETE_CUSTOMER,
@@ -27,21 +28,38 @@ const customerReducer = (state = initialState, action) => {
         ],
       };
     case UPDATE_CUSTOMER:
-      return {
-        ...state,
-        customer: [
-          ...state.customers,
-          {
-            ...state.customers.find(
-              (customer) => customer.id === action.payload.id
-            ),
-            ...action.payload,
-          },
-        ],
+      const updatedCustomer = {
+        ...state.customers.find(
+          (customer) => customer.id === action.payload.id
+        ),
+        ...action.payload,
       };
+      const selectedCustomer = state.customers.find(
+        (customer) => customer.id === action.payload.id
+      );
+      const index = state.customers.indexOf(selectedCustomer);
+
+      state.customers.splice(index, 1, updatedCustomer);
+
+      return state;
+
     default:
       return state;
   }
 };
 
 export { customerReducer };
+
+// case UPDATE_CUSTOMER:
+//   return {
+//     ...state,
+//     customer: [
+//       ...state.customers,
+//       {
+//         ...state.customers.find(
+//           (customer) => customer.id === action.payload.id
+//         ),
+//         ...action.payload,
+//       },
+//     ],
+//   };

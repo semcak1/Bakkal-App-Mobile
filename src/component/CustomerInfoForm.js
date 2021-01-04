@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { inputView, Colors } from "../styles/style";
@@ -14,6 +14,12 @@ const CustomerInfoForm = ({
   const [limit, setLimit] = useState(!limit ? 0 : customerData.limit);
   const [telephone, setTelephone] = useState(customerData.telephone);
   console.log(customerData);
+
+  //   useEffect(() => {
+  //     onButtonClick()
+
+  //   })
+
   return (
     <ScrollView>
       <Input

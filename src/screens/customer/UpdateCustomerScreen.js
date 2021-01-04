@@ -1,33 +1,32 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
-import { Input, Button } from "react-native-elements";
-import { firebase } from "../../firebase/firebase";
-import "firebase/firestore";
-import { inputView, Colors } from "../../styles/style";
-import { store } from "../../store/index";
+import React,{useEffect} from "react";
 
-import { addNewCustomer } from "../../store/middleware/middleware";
-import { useDispatch } from "react-redux";
 import CustomerInfoForm from "../../component/CustomerInfoForm";
 import { updateCustomerById } from "../../store/middleware/middleware";
-
-import { addNewCustomer } from "../../middleware/middleware";
 import { useDispatch } from "react-redux";
-import CustomerInfoForm from "../../component/CustomerInfoForm";
-import { updateCustomerById } from "../../middleware/middleware";
 
-
-const UpdateCustomerScreen = ({ navigation,route }) => {
+const UpdateCustomerScreen = ({ navigation, route }) => {
   const customerData = route.params;
+  const {customerId} = customerData;
   
-  console.log(customerData.name)
+  const dispatch = useDispatch();
+  const dispatchToUpdateCustomer = (data) => {
+    dispatch(updateCustomerById(data, customerId));
+  };
+
+  // useEffect(() => {
+  //   dispatchToUpdateCustomer(data)
+  //   // return () => {
+      
+  //   // }
+  // }, [dispatch])
+
+  console.log(customerData.name);
   return (
     <CustomerInfoForm
       buttonTitle="Güncelle"
-      onButtonClick={updateCustomerById}
+      onButtonClick={dispatchToUpdateCustomer}
       customerData={customerData}
       navigation={navigation}
-      
     />
   );
 };

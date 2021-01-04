@@ -6,13 +6,6 @@ import "firebase/firestore";
 import { inputView, Colors } from "../../styles/style";
 import { store } from "../../store/index";
 
-import { addNewCustomer } from "../../store/middleware/middleware";
-
-import { addNewCustomer } from "../../middleware/middleware";
-
-import { useDispatch } from "react-redux";
-
-
   
   
 const AddDebtScreen = ({navigation}) => {

@@ -7,6 +7,7 @@ import {
   fetchCustomers,
   addCustomer,
   deleteCustomer,
+  updateCustomer
 } from "../actions/actions";
 
 const customersList = firebase.firestore().collection("Customer");
@@ -55,12 +56,15 @@ const deleteCustomerById = (id) => {
   };
 };
 
-const updateCustomerById = (data) => {
+const updateCustomerById = (data,id) => {
   return (dispatch) => {
     customersList
-      .doc(data.id)
+      .doc(id)
       .update(data)
-      .then((res) => dispatch(updateCustomer(data)))
+      .then((res) => {
+        
+        return dispatch(updateCustomer(data,id))
+      })
       .catch((err) => console.log(err.message));
   };
 };

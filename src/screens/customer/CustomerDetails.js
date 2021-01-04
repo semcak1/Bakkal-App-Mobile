@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Button } from "react-native-elements";
+
 import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
@@ -41,7 +41,7 @@ export default CustomerDetails = ({ route, navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Edit Customer", {
-                ...customerData
+                  ...customerData,
                 });
               }}
               type="clear"
