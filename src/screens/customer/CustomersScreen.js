@@ -10,14 +10,14 @@ import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { useSelector } from "react-redux";
 
-const collection = firebase.firestore().collection("Customer");
+
 
 const CustomersScreen = ({ navigation }) => {
   
-  const customers = useSelector((state) => state.customers);
+  const customers = useSelector((state) => state.customers.customers);
 
   console.log("comPONENT");
-
+  
   return (
     <>
       <View style={styles.mainView}>

@@ -50,16 +50,3 @@ const customerReducer = (state = initialState, action) => {
 
 export { customerReducer };
 
-// case UPDATE_CUSTOMER:
-//   return {
-//     ...state,
-//     customer: [
-//       ...state.customers,
-//       {
-//         ...state.customers.find(
-//           (customer) => customer.id === action.payload.id
-//         ),
-//         ...action.payload,
-//       },
-//     ],
-//   };

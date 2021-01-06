@@ -13,6 +13,10 @@ export const inputView = {
   marginBottom: 10,
 };
 
+export const buttonView= {
+  width:150
+}
+
 export const MarginVertical = () => {
   return <View style={styles.marginVertical}></View>;
 };

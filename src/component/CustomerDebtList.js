@@ -3,32 +3,23 @@ import { View, StyleSheet, Text, FlatList } from "react-native";
 import { Colors } from "../styles/style";
 import { firebase } from "../firebase/firebase";
 import "firebase/firestore";
-
-const findCollection = (path) => {
-  return firebase.firestore().collection(path);
-};
+import { fetchDebtById } from "../store/middleware/debtMiddleware";
+import { useDispatch, useSelector } from "react-redux";
 
 const CustomerDebtList = ({ customerId }) => {
-  const debtCol = findCollection(`Customer/${customerId}/Debt`);
-  const [debts, setDebts] = useState([]);
-  const showDetails = () => {
-    debtCol.onSnapshot((snapshot) => {
-      const items = [];
-      snapshot.forEach((doc) => {
-        items.push({ id: doc.id, ...doc.data() });
-      });
-
-      setDebts(items);
-    });
-  };
+  const debtList = useSelector((state) => state.debts.debts);
+  const dispatch = useDispatch();
+  console.log(debtList);
+  
 
   useEffect(() => {
-    showDetails();
+   
+    dispatch(fetchDebtById(customerId));
   }, []);
   return (
     <FlatList
       style={styles.flatListView}
-      data={debts}
+      data={debtList}
       keyExtractor={(debt) => debt.id}
       renderItem={({ item }) => {
         return (

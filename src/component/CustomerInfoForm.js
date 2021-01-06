@@ -11,14 +11,11 @@ const CustomerInfoForm = ({
 }) => {
   const [name, setName] = useState(customerData.name);
   const [surname, setSurname] = useState(customerData.surname);
-  const [limit, setLimit] = useState(!limit ? 0 : customerData.limit);
+  const [limit, setLimit] = useState(customerData.limit ?customerData.limit:0 );
   const [telephone, setTelephone] = useState(customerData.telephone);
   console.log(customerData);
 
-  //   useEffect(() => {
-  //     onButtonClick()
 
-  //   })
 
   return (
     <ScrollView>
