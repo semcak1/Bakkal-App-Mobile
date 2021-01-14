@@ -11,7 +11,7 @@ const AddCustomerScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const addCustomerToFirebase = (data) => {
-    dispatch(addNewCustomer(data));
+     dispatch(addNewCustomer(data));
   };
 
   return (

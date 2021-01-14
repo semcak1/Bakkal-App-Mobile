@@ -1,12 +1,12 @@
-import React,{useState} from "react";
+import React,{memo, useState} from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 import { Colors } from "../styles/style";
 
-export default CustomerListHeader = ({ listName }) => {
+const CustomerListHeader = ({ listName }) => {
   //Başlık
   
-
+console.log('Customer HEADER render edildi.')
 
   
   //Etiketler  Ad Soyad   Borç miktarı    borç Limit
@@ -61,3 +61,4 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
 });
+export default memo(CustomerListHeader)

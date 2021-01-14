@@ -1,21 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, memo,useMemo } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import { Colors } from "../styles/style";
 import { firebase } from "../firebase/firebase";
 import "firebase/firestore";
 import { fetchDebtById } from "../store/middleware/debtMiddleware";
 import { useDispatch, useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
+const CustomerDebtList = ({ customerId, debtList, navigation }) => {
+  // const debtList = useSelector((state) => state.debts.debts);
+  // const dispatch = useDispatch();
 
-const CustomerDebtList = ({ customerId }) => {
-  const debtList = useSelector((state) => state.debts.debts);
-  const dispatch = useDispatch();
-  console.log(debtList);
-  
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     // console.log('GIRDİM')
+  //     let isActive=true
+  //     if(isActive){
+  //       console.log('GIRDİM')
+  //       dispatch(fetchDebtById(customerId));
+  //     }
+  //     return ()=>{
+  //       console.log('Çıktım')
+  //       isActive=false
+  //     }
+  //   },[dispatch]),
+    
+  // );
 
-  useEffect(() => {
-   
-    dispatch(fetchDebtById(customerId));
-  }, []);
+  // useEffect(() => {
+  //   let isActive =true
+  //   if(isActive){
+  //     dispatch(fetchDebtById(customerId));
+  //   }
+  //   return () => {
+  //     console.log('com. ten çıktım')
+  //     isActive=false
+  //   }
+  // }, [dispatch])
+
+  // const memoizedDebtList=useMemo(() => debtList)
+
   return (
     <FlatList
       style={styles.flatListView}
@@ -69,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomerDebtList;
+export default memo(CustomerDebtList);

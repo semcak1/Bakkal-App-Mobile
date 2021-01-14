@@ -7,14 +7,19 @@ import { inputView, Colors } from "../../styles/style";
 import { store } from "../../store/index";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialIcons, Entypo, Ionicons } from "react-native-vector-icons";
-
-const AddDebtScreen = ({ navigation }) => {
+import { useDispatch } from "react-redux";
+import { addNewDebt } from "../../store/middleware/debtMiddleware";
+const AddDebtScreen = ({ navigation, route }) => {
+  const { customerId } = route.params;
   const [mode, setmode] = useState("");
-  const [date, setdate] = useState(new Date());
   const [show, setshow] = useState(null);
+  const [price, setprice] = useState('');
+  const [products, setproducts] = useState("");
+  const [date, setdate] = useState(new Date());
+  const dispatch = useDispatch();
 
-  console.log("RENDER !!!!!!!!!!!!");
-  console.log(show);
+ 
+ 
   const onChange = (event, selectedDate) => {
     setshow(false);
 
@@ -31,28 +36,35 @@ const AddDebtScreen = ({ navigation }) => {
     showMode("date");
   };
 
+  const addDebtToFirebase = (data) => {
+    dispatch(addNewDebt(data, customerId));
+  };
+
   return (
     <>
       <View style={styles.formView}>
         <Input
-          autoCapitalize={false}
-          autoCorrect={false}
           label="Veresiye Miktarı"
           style={styles.inputView}
+          value={price}
+          onChangeText={(text) => {
+            setprice(text);
+          }}
         />
 
         <Input
-          autoCapitalize={false}
-          autoCorrect={false}
+         
           label="Alınanlar"
           style={styles.inputView}
+          value={products}
+          onChangeText={(text) => {
+            setproducts(text);
+          }}
         />
 
         <Input
           disabled={true}
           label="Tarih"
-          autoCapitalize={false}
-          autoCorrect={false}
           placeholder="Tarih"
           style={styles.inputView}
           value={date.toDateString()}
@@ -80,8 +92,28 @@ const AddDebtScreen = ({ navigation }) => {
           ) : null}
         </View>
         <View style={styles.buttonContainer}>
-          <Button buttonStyle={styles.cancelButtonView} title="İptal" />
-          <Button buttonStyle={styles.saveButtonView} title="Kaydet" />
+          <Button
+            onPress={() => {
+              navigation.goBack();
+            }}
+            buttonStyle={styles.cancelButtonView}
+            title="İptal"
+          />
+          <Button
+            onPress={() => {
+              addDebtToFirebase({
+                debtPrice: Number(price),
+                products,
+                debtDate: date,
+              });
+              navigation.navigate('CustomerDetails');
+              setprice('')
+              setproducts('')
+              
+            }}
+            buttonStyle={styles.saveButtonView}
+            title="Kaydet"
+          />
         </View>
       </View>
     </>

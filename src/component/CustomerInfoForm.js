@@ -37,7 +37,7 @@ const CustomerInfoForm = ({
         placeholder="Soyad"
       ></Input>
       <Input
-        value={limit.toString()}
+        value={limit}
         onChangeText={(text) => {
           setLimit(text);
         }}
@@ -62,6 +62,7 @@ const CustomerInfoForm = ({
         />
         <Button
           onPress={() => {
+            console.log("kaydet calıltı")
             onButtonClick({
               name,
               surname,

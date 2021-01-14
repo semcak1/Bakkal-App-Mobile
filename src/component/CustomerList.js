@@ -19,6 +19,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { getCustomers } from "../store/middleware/middleware";
 import { useDispatch } from "react-redux";
 import { deleteCustomerById } from "../store/middleware/middleware";
+import {fetchDebtById} from '../store/middleware/debtMiddleware'
 const db = firebase.firestore().collection("Customer");
 const buttonWidth = 90;
 
@@ -61,6 +62,7 @@ export const CustomerNameList = ({ data, navigation }) => {
   };
 
   useEffect(() => {
+    console.log('CALIŞIYORs')
     dispatch(getCustomers());
   }, [dispatch]);
 
@@ -82,6 +84,7 @@ export const CustomerNameList = ({ data, navigation }) => {
                   telephone:item.telephone
                 },
               });
+             
             }}
           >
             <View style={styles.mainView}>

@@ -1,38 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-
+import { useFocusEffect } from "@react-navigation/native";
 import { firebase } from "../../firebase/firebase";
 import "firebase/firestore";
 import { Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
 import { Colors } from "../../styles/style";
 import CustomerDebtList from "../../component/CustomerDebtList";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDebtById } from "../../store/middleware/debtMiddleware";
+import { createSelector } from "reselect";
 
-const findCollection = (path) => {
-  return firebase.firestore().collection(path);
-};
-export default CustomerDetails = ({ route, navigation }) => {
+
+
+const CustomerDetails = ({ route, navigation }) => {
+  console.log("CustomDETAİLS RE RENDER EDİLDİ.");
+
   const customerData = route.params;
 
-  const [totalDebt, setTotalDebt] = useState(0);
-  const debtCol = findCollection(`Customer/${customerData.customerId}/Debt`);
+  const dispatch = useDispatch();
+  const debtList = useSelector((state) =>  state.debts.debts);
+  const totalDebt=useSelector(state=> state.debts.totalDebt)
+  
+  console.log("Müşteri ID", customerData.customerId);
+  
 
-  const calculateTotalDebt = () => {
-    let total = 0;
-    debtCol.onSnapshot((snapshot) => {
-      snapshot.docs.map((doc) => {
-        const { debtPrice } = doc.data();
-        total = debtPrice + total;
-      });
-      setTotalDebt(total.toFixed(2));
-      console.log(total);
-    });
-  };
+  const memoizeDebtList = useMemo(() => debtList);
 
-  useEffect(() => {
-    // showDetails();
-    calculateTotalDebt();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const customerId = route.params.customerId;
+      let isActive = true;
+      if (isActive) {
+        console.log("USE CALLBACK UPDATE EDİLDİ");
+        dispatch(fetchDebtById(customerId));
 
+      
+      }
+      return () => {
+        console.log("Çıktım");
+        isActive = false;
+      };
+    }, [dispatch])
+  );
   return (
     <>
       <View style={styles.mainView}>
@@ -41,7 +50,7 @@ export default CustomerDetails = ({ route, navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Edit Customer", {
-                  ...customerData,
+                  params: { ...customerData },
                 });
               }}
               type="clear"
@@ -54,10 +63,12 @@ export default CustomerDetails = ({ route, navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.totalDebtView}>{totalDebt} TL </Text>
+          <Text style={styles.totalDebtView}>{totalDebt.toFixed(2)} TL </Text>
           <Text style={styles.textView}>
             {customerData.name}
             {""} {customerData.surname}
+            {""}
+            {customerData.customerId}
           </Text>
 
           <Text style={styles.textView}>Limit : {customerData.limit} TL </Text>
@@ -65,11 +76,17 @@ export default CustomerDetails = ({ route, navigation }) => {
         <Text style={styles.bigRadiusView}></Text>
       </View>
 
-      <CustomerDebtList customerId={customerData.customerId} />
+      <CustomerDebtList
+        navigation={navigation}
+        debtList={memoizeDebtList}
+        customerId={customerData.customerId}
+      />
       <TouchableOpacity
         style={styles.buttonView}
         onPress={() => {
-          navigation.navigate("AddDebt");
+          navigation.navigate("AddDebt", {
+            customerId: customerData.customerId,
+          });
         }}
       >
         <Ionicons name="md-add-circle" size={64} color={Colors.primary} />
@@ -142,3 +159,5 @@ const styles = StyleSheet.create({
     bottom: 20,
   },
 });
+
+export default memo(CustomerDetails);
