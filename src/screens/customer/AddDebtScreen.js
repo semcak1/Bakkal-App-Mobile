@@ -102,7 +102,7 @@ const AddDebtScreen = ({ navigation, route }) => {
           <Button
             onPress={() => {
               addDebtToFirebase({
-                debtPrice: Number(price),
+                price: Number(price),
                 products,
                 debtDate: date,
               });

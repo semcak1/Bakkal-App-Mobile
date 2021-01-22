@@ -9,10 +9,10 @@ const CustomerInfoForm = ({
   buttonTitle,
   customerData,
 }) => {
-  const [name, setName] = useState(customerData.name);
-  const [surname, setSurname] = useState(customerData.surname);
+  const [name, setName] = useState({...customerData.name});
+  const [surname, setSurname] = useState({...customerData.surname});
   const [limit, setLimit] = useState(customerData.limit ?customerData.limit:0 );
-  const [telephone, setTelephone] = useState(customerData.telephone);
+  const [telephone, setTelephone] = useState({...customerData.telephone});
   console.log(customerData);
 
 
@@ -39,7 +39,7 @@ const CustomerInfoForm = ({
       <Input
         value={limit}
         onChangeText={(text) => {
-          setLimit(text);
+          setLimit(text.toString());
         }}
         style={styles.inputView}
         placeholder="Borç Limiti"

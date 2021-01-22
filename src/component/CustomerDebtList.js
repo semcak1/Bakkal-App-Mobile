@@ -7,6 +7,7 @@ import { fetchDebtById } from "../store/middleware/debtMiddleware";
 import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 const CustomerDebtList = ({ customerId, debtList, navigation }) => {
+  console.log("CHİLD COMPONENt CUSToMERDEBTLİST REnDERED")
   // const debtList = useSelector((state) => state.debts.debts);
   // const dispatch = useDispatch();
 
@@ -51,7 +52,7 @@ const CustomerDebtList = ({ customerId, debtList, navigation }) => {
               <View style={styles.detbItem}>
                 <Text style={styles.debtTextView}>BORÇ</Text>
                 <Text style={{ ...styles.debtTextView, fontSize: 24 }}>
-                  {item.debtPrice} TL{" "}
+                  {item.price} TL{" "}
                 </Text>
               </View>
 

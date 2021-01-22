@@ -15,6 +15,7 @@ const initialState = {
 const customerReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CUSTOMERS_SUCCESS:
+      
       return { ...state, customers: [...action.payload], isLoaded: true };
     case ADD_CUSTOMER:
       return { ...state, customers: [...state.customers, action.payload] };
@@ -49,4 +50,3 @@ const customerReducer = (state = initialState, action) => {
 };
 
 export { customerReducer };
-

@@ -17,26 +17,32 @@ import { firebase } from "../firebase/firebase";
 import "firebase/firestore";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { getCustomers } from "../store/middleware/middleware";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomerById } from "../store/middleware/middleware";
-import {fetchDebtById} from '../store/middleware/debtMiddleware'
-const db = firebase.firestore().collection("Customer");
+import {
+  fetchDebtById,
+  fetchAllDebtMiddleware,
+} from "../store/middleware/debtMiddleware";
+import { fetchAllDebt, fetchDebt } from "../store/actions/debt-actions";
+
 const buttonWidth = 90;
 
 //LOGİC
 
-const CustomerTotalDebt = ({ id, callback }) => {
-  return (
-    <>
-      <Text style={styles.columnView}>test</Text>
-    </>
-  );
-};
-
 export const CustomerNameList = ({ data, navigation }) => {
   const [isLoading, setisLoading] = useState(false);
+  const debts = useSelector((state) => state.debts.allDebts);
+  console.log("CHİLD -CUSTOMER NAME LİST- ALLL DEBTS LİSTS", debts);
+
+  const calculateTotalDebt = (customerId, debtList) => {
+    let totalDebt = debtList
+      .filter((debt) => debt.customerId === customerId)
+      .reduce((acc, currentValue) => acc + currentValue.price, 0);
+    return totalDebt;
+  };
 
   const dispatch = useDispatch();
+
   const handleDanger = (item) => {
     Alert.alert(
       "SİL",
@@ -62,9 +68,21 @@ export const CustomerNameList = ({ data, navigation }) => {
   };
 
   useEffect(() => {
-    console.log('CALIŞIYORs')
+    console.log("CHİLD - CustomerNameList-Use effect in içi");
     dispatch(getCustomers());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log("CHİLD - CustomerNameList-Use effect Focus çalıştı")
+    const unsubscribe = navigation.addListener("focus", () => {
+      dispatch(fetchAllDebtMiddleware());
+    });
+
+    return ()=>{
+      console.log("CHİLD - CustomerNameList-Use effect componentten çıkıldı")
+      return unsubscribe
+    };
+  }, [navigation]);
 
   return (
     <SwipeListView
@@ -75,26 +93,25 @@ export const CustomerNameList = ({ data, navigation }) => {
           <TouchableHighlight
             onPress={() => {
               navigation.navigate("DetailOfCustomer", {
-                screen:'CustomerDetails',
+                screen: "CustomerDetails",
                 params: {
                   customerId: item.id,
                   name: item.name,
                   surname: item.surname,
                   limit: item.limit,
-                  telephone:item.telephone
+                  telephone: item.telephone,
                 },
               });
-             
             }}
           >
             <View style={styles.mainView}>
               <Text style={styles.columnView}>
                 {item.name} {item.surname}{" "}
               </Text>
-              <CustomerTotalDebt id={item.id} />
               <Text style={styles.columnView}>
-                {item.limit}- {item.id}{" "}
+                {calculateTotalDebt(item.id, debts)}
               </Text>
+              <Text style={styles.columnView}>{item.limit}</Text>
             </View>
           </TouchableHighlight>
         );

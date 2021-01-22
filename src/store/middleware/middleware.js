@@ -7,10 +7,16 @@ import {
   fetchCustomers,
   addCustomer,
   deleteCustomer,
-  updateCustomer
+  updateCustomer,
 } from "../actions/actions";
 
-const customersList = firebase.firestore().collection("Customer");
+const customersList = firebase
+  .firestore()
+  .collection("members")
+  .doc("FMmxXizR6XRSZfw9lLE1")
+  .collection("customers");
+
+// const debtIdList=firebase.firestore().collection("members").doc("FMmxXizR6XRSZfw9lLE1").collection("customers").doc(customerId).collection("debts")
 
 const getCustomers = () => {
   return (dispatch) => {
@@ -56,14 +62,13 @@ const deleteCustomerById = (id) => {
   };
 };
 
-const updateCustomerById = (data,id) => {
+const updateCustomerById = (data, id) => {
   return (dispatch) => {
     customersList
       .doc(id)
       .update(data)
       .then((res) => {
-        
-        return dispatch(updateCustomer(data,id))
+        return dispatch(updateCustomer(data, id));
       })
       .catch((err) => console.log(err.message));
   };

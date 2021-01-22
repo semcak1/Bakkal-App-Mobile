@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  memo,
+  useRef,
+} from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { firebase } from "../../firebase/firebase";
@@ -6,11 +13,9 @@ import "firebase/firestore";
 import { Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
 import { Colors } from "../../styles/style";
 import CustomerDebtList from "../../component/CustomerDebtList";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { fetchDebtById } from "../../store/middleware/debtMiddleware";
 import { createSelector } from "reselect";
-
-
 
 const CustomerDetails = ({ route, navigation }) => {
   console.log("CustomDETAİLS RE RENDER EDİLDİ.");
@@ -18,13 +23,15 @@ const CustomerDetails = ({ route, navigation }) => {
   const customerData = route.params;
 
   const dispatch = useDispatch();
-  const debtList = useSelector((state) =>  state.debts.debts);
-  const totalDebt=useSelector(state=> state.debts.totalDebt)
-  
-  console.log("Müşteri ID", customerData.customerId);
-  
 
-  const memoizeDebtList = useMemo(() => debtList);
+  const debtState = useSelector((state) => state.debts);
+  console.log("CUSTOMER DETAİLS DEBT STATE", debtState);
+  const data = useRef(null);
+  const totalDebt = useRef(null);
+  data.current = debtState.debts.filter(
+    (debt) => debt.customerId === customerData.customerId
+  );
+  totalDebt.current = debtState.totalDebt;
 
   useFocusEffect(
     useCallback(() => {
@@ -33,8 +40,6 @@ const CustomerDetails = ({ route, navigation }) => {
       if (isActive) {
         console.log("USE CALLBACK UPDATE EDİLDİ");
         dispatch(fetchDebtById(customerId));
-
-      
       }
       return () => {
         console.log("Çıktım");
@@ -42,6 +47,14 @@ const CustomerDetails = ({ route, navigation }) => {
       };
     }, [dispatch])
   );
+
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [input])
+
   return (
     <>
       <View style={styles.mainView}>
@@ -63,12 +76,12 @@ const CustomerDetails = ({ route, navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.totalDebtView}>{totalDebt.toFixed(2)} TL </Text>
+          <Text style={styles.totalDebtView}>
+            {totalDebt.current.toFixed(2)} TL{" "}
+          </Text>
           <Text style={styles.textView}>
             {customerData.name}
             {""} {customerData.surname}
-            {""}
-            {customerData.customerId}
           </Text>
 
           <Text style={styles.textView}>Limit : {customerData.limit} TL </Text>
@@ -78,7 +91,8 @@ const CustomerDetails = ({ route, navigation }) => {
 
       <CustomerDebtList
         navigation={navigation}
-        debtList={memoizeDebtList}
+        debtList={data.current}
+        // debtList={debtList}
         customerId={customerData.customerId}
       />
       <TouchableOpacity
