@@ -21,8 +21,14 @@ import AddIncomeExpensesScreen from "../screens/incomeExpenses/AddIncomeExpenses
 import CustomerDetails from "../screens/customer/CustomerDetails";
 import UpdateCustomerScreen from "../screens/customer/UpdateCustomerScreen";
 import AddDebtScreen from "../screens/customer/AddDebtScreen";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import CustomerDebtScreen from "../screens/customer/CustomerDebtScreen";
+import CustomerPaymentScreen from "../screens/customer/CustomerPaymentScreen";
+import { paramsContext } from "../context/navigationContext";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 let isLoggedIn = true;
 
 const BottomTab = () => {
@@ -130,11 +136,44 @@ const IncExpStack = () => {
 
 const CustomerDetail = () => {
   return (
-    <Stack.Navigator initialRouteName="CustomerDetails">
-      <Stack.Screen name="CustomerDetails" component={CustomerDetails} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="CustomerDebtsPayments"
+        component={CustomerDebtsPayments}
+      />
+
       <Stack.Screen name="Edit Customer" component={UpdateCustomerScreen} />
       <Stack.Screen name="AddDebt" component={AddDebtScreen} />
     </Stack.Navigator>
+  );
+};
+
+// const CustomerDebt = () => {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="CustomerDebtScreen" component={CustomerDebtScreen} />
+//       <Stack.Screen name="Edit Customer" component={UpdateCustomerScreen} />
+//       <Stack.Screen name="AddDebt" component={AddDebtScreen} />
+//     </Stack.Navigator>
+//   );
+// };
+
+const CustomerDebtsPayments = ({ route }) => {
+
+  const customerData = route.params;
+  return (
+    <paramsContext.Provider value={customerData}>
+      <TopTab.Navigator initialRouteName="CustomerDebt">
+        <TopTab.Screen
+          name="CustomerDebtScreen"
+          component={CustomerDebtScreen}
+        />
+        <TopTab.Screen
+          name="CustomerPayment"
+          component={CustomerPaymentScreen}
+        />
+      </TopTab.Navigator>
+    </paramsContext.Provider>
   );
 };
 

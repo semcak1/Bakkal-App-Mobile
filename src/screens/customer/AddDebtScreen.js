@@ -106,7 +106,7 @@ const AddDebtScreen = ({ navigation, route }) => {
                 products,
                 debtDate: date,
               });
-              navigation.navigate('CustomerDetails');
+              navigation.navigate('CustomerDebtsPayments');
               setprice('')
               setproducts('')
               

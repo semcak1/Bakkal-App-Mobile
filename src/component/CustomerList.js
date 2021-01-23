@@ -93,7 +93,7 @@ export const CustomerNameList = ({ data, navigation }) => {
           <TouchableHighlight
             onPress={() => {
               navigation.navigate("DetailOfCustomer", {
-                screen: "CustomerDetails",
+                screen: "CustomerDebtsPayments",
                 params: {
                   customerId: item.id,
                   name: item.name,
