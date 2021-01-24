@@ -10,11 +10,9 @@ import {
   TouchableHighlight,
   LogBox,
 } from "react-native";
-import { Input, Button } from "react-native-elements";
+
 import { MarginVertical, Colors, ListItemView } from "../styles/style";
-import { Customers } from "../database/Customer";
-import { firebase } from "../firebase/firebase";
-import "firebase/firestore";
+
 import { SwipeListView } from "react-native-swipe-list-view";
 import { getCustomers } from "../store/middleware/middleware";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +21,7 @@ import {
   fetchDebtById,
   fetchAllDebtMiddleware,
 } from "../store/middleware/debtMiddleware";
-import { fetchAllDebt, fetchDebt } from "../store/actions/debt-actions";
+import { swipeToDeleteCustomer } from "../component/SwipeList";
 
 const buttonWidth = 90;
 
@@ -43,29 +41,30 @@ export const CustomerNameList = ({ data, navigation }) => {
 
   const dispatch = useDispatch();
 
-  const handleDanger = (item) => {
-    Alert.alert(
-      "SİL",
-      ` ${item.name} siliniyor.`,
-      [
-        {
-          text: "İptal",
-          onPress: () => console.log("Canceled pres"),
-          style: "cancel",
-        },
-        {
-          text: "Sil",
-          onPress: () => {
-            dispatch(deleteCustomerById(item.id));
-          },
-          style: "destructive",
-        },
-      ],
-      {
-        cancelable: false,
-      }
-    );
-  };
+  // const swipeToDeleteCustomer = (item, action) => {
+  //   Alert.alert(
+  //     "SİL",
+  //     ` ${item.name} siliniyor.`,
+  //     [
+  //       {
+  //         text: "İptal",
+  //         onPress: () => console.log("Canceled pres"),
+  //         style: "cancel",
+  //       },
+  //       {
+  //         text: "Sil",
+  //         onPress: () => {
+  //           dispatch(action);
+  //           // dispatch(deleteCustomerById(item.id));
+  //         },
+  //         style: "destructive",
+  //       },
+  //     ],
+  //     {
+  //       cancelable: false,
+  //     }
+  //   );
+  // };
 
   useEffect(() => {
     console.log("CHİLD - CustomerNameList-Use effect in içi");
@@ -73,14 +72,14 @@ export const CustomerNameList = ({ data, navigation }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("CHİLD - CustomerNameList-Use effect Focus çalıştı")
+    console.log("CHİLD - CustomerNameList-Use effect Focus çalıştı");
     const unsubscribe = navigation.addListener("focus", () => {
       dispatch(fetchAllDebtMiddleware());
     });
 
-    return ()=>{
-      console.log("CHİLD - CustomerNameList-Use effect componentten çıkıldı")
-      return unsubscribe
+    return () => {
+      console.log("CHİLD - CustomerNameList-Use effect componentten çıkıldı");
+      return unsubscribe;
     };
   }, [navigation]);
 
@@ -121,7 +120,11 @@ export const CustomerNameList = ({ data, navigation }) => {
           <View style={styles.rowBack}>
             <TouchableOpacity
               style={styles.rightButton}
-              onPress={() => handleDanger(item)}
+              onPress={() =>
+                dispatch(
+                  swipeToDeleteCustomer(item, deleteCustomerById(item.id))
+                )
+              }
             >
               <Text style={styles.backText}>SİL</Text>
             </TouchableOpacity>
@@ -132,6 +135,19 @@ export const CustomerNameList = ({ data, navigation }) => {
     />
   );
 };
+
+// const renderHiddenItem=({item,fonk,style,buttonName})=>{
+//   return(
+//     <View style={style.view}>
+//     <TouchableOpacity
+//       style={style.rightButton}
+//       onPress={()=>{fonk(i)}}
+//     >
+//       <Text style={style.backText}>{buttonName}</Text>
+//     </TouchableOpacity>
+//   </View>
+//   )
+// }
 
 const styles = StyleSheet.create({
   mainView: {

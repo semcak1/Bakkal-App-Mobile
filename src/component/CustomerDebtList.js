@@ -1,47 +1,14 @@
 import React, { useState, useEffect, useCallback, memo,useMemo } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import { Colors } from "../styles/style";
-import { firebase } from "../firebase/firebase";
-import "firebase/firestore";
-import { fetchDebtById } from "../store/middleware/debtMiddleware";
-import { useDispatch, useSelector } from "react-redux";
-import { useFocusEffect } from "@react-navigation/native";
+import { SwipeListView } from "react-native-swipe-list-view";
+
 const CustomerDebtList = ({ customerId, debtList, navigation }) => {
   console.log("CHİLD COMPONENt CUSToMERDEBTLİST REnDERED")
-  // const debtList = useSelector((state) => state.debts.debts);
-  // const dispatch = useDispatch();
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     // console.log('GIRDİM')
-  //     let isActive=true
-  //     if(isActive){
-  //       console.log('GIRDİM')
-  //       dispatch(fetchDebtById(customerId));
-  //     }
-  //     return ()=>{
-  //       console.log('Çıktım')
-  //       isActive=false
-  //     }
-  //   },[dispatch]),
-    
-  // );
-
-  // useEffect(() => {
-  //   let isActive =true
-  //   if(isActive){
-  //     dispatch(fetchDebtById(customerId));
-  //   }
-  //   return () => {
-  //     console.log('com. ten çıktım')
-  //     isActive=false
-  //   }
-  // }, [dispatch])
-
-  // const memoizedDebtList=useMemo(() => debtList)
+  
 
   return (
-    <FlatList
+    <SwipeListView
       style={styles.flatListView}
       data={debtList}
       keyExtractor={(debt) => debt.id}
@@ -65,6 +32,13 @@ const CustomerDebtList = ({ customerId, debtList, navigation }) => {
             </View>
           </>
         );
+      }}
+      renderHiddenItem={()=>{
+        return(
+          <View>
+            
+          </View>
+        )
       }}
     />
   );

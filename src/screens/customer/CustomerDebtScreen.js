@@ -22,7 +22,7 @@ const CustomerDebtScreen = ({navigation}) => {
   console.log("DEBT SCREEN ROUTE", customerData);
   console.log("CustomDETAİLS RE RENDER EDİLDİ.");
 
-  // const customerData = route.params;
+ 
 
   const dispatch = useDispatch();
 
@@ -50,12 +50,7 @@ const CustomerDebtScreen = ({navigation}) => {
     }, [dispatch])
   );
 
-  // useEffect(() => {
-  //   effect
-  //   return () => {
-  //     cleanup
-  //   }
-  // }, [input])
+  
 
   return (
     <>
@@ -94,7 +89,7 @@ const CustomerDebtScreen = ({navigation}) => {
       <CustomerDebtList
         navigation={navigation}
         debtList={data.current}
-        // debtList={debtList}
+       
         customerId={customerData.customerId}
       />
       <TouchableOpacity
